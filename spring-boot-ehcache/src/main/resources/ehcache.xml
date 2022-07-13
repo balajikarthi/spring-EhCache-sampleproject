@@ -1,0 +1,32 @@
+<!--ehcache.xml
+   providing the caching configuration for individual cache items -->
+   
+   
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+	updateCheck="false"
+	monitoring="autodetect" 
+	dynamicConfig="true">
+	
+<!-- The path specified ‘java.io.tmpdir’ which refers
+                                      to default temp file path -->
+	<diskStore path="java.io.tmpdir" />
+	
+	
+	<!-- name is products
+	     maximum 100 products will kept in memory [on-heap]stored
+	     maximum 1000 products will be maintained in the DiskStore -->
+	     
+	<cache name="products" 
+		maxEntriesLocalHeap="100"   
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+<!-- A product will be expired if it is
+          idle for more than 5 minutes and lives for more than 10 minutes -->
+</ehcache>
