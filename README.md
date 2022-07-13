@@ -1,1 +1,46 @@
 # spring-EhCache-sampleproject
+This is Console:
+
+13:58:19.308 [main] DEBUG net.sf.ehcache.Cache - Initialised cache: products
+13:58:19.309 [main] DEBUG net.sf.ehcache.config.ConfigurationHelper - CacheDecoratorFactory not configured. Skipping for 'products'.
+13:58:19.310 [main] DEBUG net.sf.ehcache.config.ConfigurationHelper - CacheDecoratorFactory not configured for defaultCache. Skipping for 'products'.
+Inside getByName(String name) method
+13:58:51.879 [main] DEBUG net.sf.ehcache.store.disk.Segment - put added 0 on heap
+Laptop ->Product [name=Laptop, price=100.0]
+13:58:51.898 [products.data] DEBUG net.sf.ehcache.store.disk.Segment - fault removed 0 from heap
+13:58:51.898 [products.data] DEBUG net.sf.ehcache.store.disk.Segment - fault added 0 on disk
+Laptop ->Product [name=Laptop, price=100.0]
+Laptop ->Product [name=Laptop, price=100.0]
+
+Explanation:
+
+I'm debuging here 
+Step 1 : First (Product getByName) method will be executed 
+Step 2 : And result will stored in cache, the cache name is products.
+Step 3 : Again I'm calling the method the result will be executed in cache
+Step 4 : Again I'm calling again they don't execute the method 
+Step 5 : So, Application is faster. 
+
+This is Console:
+
+Refreshing all products
+
+13:59:23.604 [main] DEBUG net.sf.ehcache.store.disk.Segment - cleared disk usage
+13:59:23.604 [main] DEBUG net.sf.ehcache.store.disk.Segment - cleared heap usage
+13:59:23.604 [main] DEBUG net.sf.ehcache.store.disk.Segment - cleared disk usage
+Inside getByName(String name) method
+13:59:48.283 [main] DEBUG net.sf.ehcache.store.disk.Segment - put added 0 on heap
+Laptop [after refresh]->Product [name=Laptop, price=100.0]
+13:59:48.283 [products.data] DEBUG net.sf.ehcache.store.disk.Segment - fault removed 0 from heap
+13:59:48.284 [products.data] DEBUG net.sf.ehcache.store.disk.Segment - fault added 0 on disk
+Laptop [after refresh]->Product [name=Laptop, price=100.0]
+Laptop [after refresh]->Product [name=Laptop, price=100.0]
+
+Explanation:
+Step 1 : Then I'm calling (Refreshing all) method 
+Step 2 : This method remove all the products from products cache
+Step 3 : And the I execute the (Product getByName) method 
+Step 4 : The method will execute first and then result will stored in products 
+Step 5 : Again I'm calling the method the result will be executed in cache
+Step 6 : So, Application is faster.
+
